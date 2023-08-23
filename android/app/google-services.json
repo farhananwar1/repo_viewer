@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "365444251467",
+    "project_id": "github-json-reviewer",
+    "storage_bucket": "github-json-reviewer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365444251467:android:ee8fed7ce4f5c43e1972ce",
+        "android_client_info": {
+          "package_name": "com.example.repo_viewer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365444251467-odd3ss0hb8387smo7d7b470e76gp8osl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB46-ddRE9KxzP8Mobz97yovmzceVGcyrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365444251467-odd3ss0hb8387smo7d7b470e76gp8osl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
