@@ -3,19 +3,21 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:repo_viewer/ui/home/home_viewmodel.dart';
+import 'package:repo_viewer/ui/auth/login/login_view_model.dart';
+import 'package:repo_viewer/ui/pagesListView/pages_list_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class PagesList extends StatelessWidget {
+  final String repoName;
+  const PagesList({super.key,required this.repoName});
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<HomeViewModel>.reactive(
+    return ViewModelBuilder<PagesListViewModel>.reactive(
       onViewModelReady: (model) async {
-      model.getTokenFromSPAndPassItToTheFunction();
+        model.getPagesList(repoName);
       },
-      viewModelBuilder: () => HomeViewModel(),
+      viewModelBuilder: () => PagesListViewModel(),
       builder: (ctx, model, child) => Scaffold(
         body: SafeArea(
           child: Column(
@@ -23,33 +25,40 @@ class Home extends StatelessWidget {
               model.isBusy
                   ? const Expanded(
                       child: Center(child: CircularProgressIndicator()))
-                  : model.repoList.isNotEmpty
+                  : model.pagesList.isNotEmpty
                       ? Expanded(
                           child: MediaQuery.removePadding(
                             context: context,
                             removeTop: true,
                             child: ListView.builder(
-                                itemCount:model. repoList.length,
+                                itemCount: model.pagesList.length,
                                 itemBuilder: (context, index) {
-                                  log(model.repoList[0].toString());
-                                  final fullName =
-                                      model.repoList[index]['full_name'];
+                                  log(model.pagesList[0].toString());
+                                  final name =
+                                      model.pagesList[index]['name'];
                                   return GestureDetector(
                                       onTap: () async {
-                                        model.goToPagesListPage(model.repoList[index]['full_name']);
+                                        model.viewJson(
+                                            model.pagesList[index]
+                                                ['download_url'],
+                                            context);
                                       },
                                       child: Container(
-                                        margin: const EdgeInsets.all(12),
-                                        height: 35.h,
-                                        padding: const EdgeInsets.all(12),
-                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(6),border: Border.all(color: Colors.black)),
-                                        child: Text(fullName)));
+                                          margin: const EdgeInsets.all(12),
+                                          height: 35.h,
+                                          padding: const EdgeInsets.all(12),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                              border: Border.all(
+                                                  color: Colors.black)),
+                                          child: Text(name.toString().capitalize())));
                                 }),
                           ),
                         )
                       : Center(
                           child: Text(
-                            'No Repo Found',
+                            'No Page Found',
                             textAlign: TextAlign.center,
                             style: GoogleFonts.ibmPlexSans(
                               color: const Color(0xff030303),

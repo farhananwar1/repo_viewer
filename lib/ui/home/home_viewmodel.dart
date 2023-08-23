@@ -1,9 +1,7 @@
 import 'dart:developer';
-
-import 'package:flutter/material.dart';
 import 'package:repo_viewer/app/app.locator.dart';
 import 'package:repo_viewer/services/api.dart';
-import 'package:repo_viewer/ui/json_viewer/json_viewer.dart';
+import 'package:repo_viewer/ui/pagesListView/pages_list_view.dart';
 import 'package:repo_viewer/utils/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -16,9 +14,9 @@ class HomeViewModel extends BaseViewModel {
 
   getTokenFromSPAndPassItToTheFunction() async {
     try {
-      String? user = await Store.getUser();
-      if (user != null) {
-        getUserNameWithToken(user);
+      String? token = await Store.getUser();
+      if (token != null) {
+        getUserNameWithToken(token);
       } else {
         log("No Token found in SP");
       }
@@ -44,13 +42,7 @@ class HomeViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-  viewJson(repo, BuildContext context) async {
-    setBusy(true);
-    response = await _api.viewJson(repo);
-    if (response.isNotEmpty) {
-      await _navigationService.navigateToView(JsonViewer(response: response));
-      log(response.toString());
-    }
-    setBusy(false);
+  goToPagesListPage(repoName){
+    _navigationService.navigateToView(PagesList(repoName: repoName));
   }
 }

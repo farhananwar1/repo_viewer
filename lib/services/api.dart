@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 class Api {
   static const baseUrl = "https://api.github.com/user";
   static const jsonViewerBaseUrl = "https://raw.githubusercontent.com";
+  static const repoNameUrl ="https://api.github.com/repos";
   Future<http.Response> clientGet(String url, {Map<String, String>? headers}) {
     log(url);
     log(headers.toString());
@@ -45,8 +46,21 @@ class Api {
     }
   }
 
-  Future viewJson(repo) async {
-    var response = await clientGet('$jsonViewerBaseUrl/$repo/main/json');
+  Future getRepoContent(repoName) async {
+    var response = await clientGet('$repoNameUrl/$repoName/contents');
+    if (response.statusCode == 200) {
+      var responseData = json.decode(response.body);
+      return responseData;
+    } else if (response.statusCode == 404) {
+      return null;
+    } else {
+      log('Request ${response.request!.url} failed with status: ${response.statusCode}.');
+      return null;
+    }
+  }
+
+  Future viewJson(mainContent) async {
+    var response = await clientGet(mainContent);
     if (response.statusCode == 200) {
       var responseData = json.decode(response.body);
       return responseData;
