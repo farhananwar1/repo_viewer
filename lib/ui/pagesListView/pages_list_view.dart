@@ -9,7 +9,7 @@ import 'package:stacked/stacked.dart';
 
 class PagesList extends StatelessWidget {
   final String repoName;
-  const PagesList({super.key,required this.repoName});
+  const PagesList({super.key, required this.repoName});
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +34,7 @@ class PagesList extends StatelessWidget {
                                 itemCount: model.pagesList.length,
                                 itemBuilder: (context, index) {
                                   log(model.pagesList[0].toString());
-                                  final name =
-                                      model.pagesList[index]['name'];
+                                  final name = model.pagesList[index]['name'];
                                   return GestureDetector(
                                       onTap: () async {
                                         model.viewJson(
@@ -52,7 +51,8 @@ class PagesList extends StatelessWidget {
                                                   BorderRadius.circular(6),
                                               border: Border.all(
                                                   color: Colors.black)),
-                                          child: Text(name.toString().capitalize())));
+                                          child: Text(
+                                              name.toString().capitalize())));
                                 }),
                           ),
                         )

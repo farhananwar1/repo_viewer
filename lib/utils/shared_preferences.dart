@@ -16,12 +16,6 @@ class Store {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setString(_userKey, json.encode(token!));
   }
-
-    static Future<String?> getToken() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userString = prefs.getString(_userKey);
-    return userString != null ? json.decode(userString) : null;
-  }
 }
 
 class SharedPreferencesBuilder<T> extends StatelessWidget {

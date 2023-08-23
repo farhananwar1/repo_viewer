@@ -35,9 +35,6 @@ class _LoginViewState extends State<LoginView> {
         centerTitle: false,
         scope: 'user,gist,user:email,repo,repo_public');
     final result = await gitHubSignIn.signIn(context);
-    // final githubAuthCredentials = await GithubAuthProvider.credential(result.token!);
-    // return await FirebaseAuth.instance
-    // .signInWithCredential(githubAuthCredentials);
     switch (result.status) {
       case GitHubSignInResultStatus.ok:
         log(result.token.toString());
@@ -58,19 +55,6 @@ class _LoginViewState extends State<LoginView> {
       onViewModelReady: (model) async {},
       viewModelBuilder: () => LoginViewModel(),
       builder: (ctx, model, child) => Scaffold(
-        appBar: AppBar(backgroundColor: Colors.deepPurple, actions: [
-          GestureDetector(
-              onTap: () async {
-                // var currentUser = await FirebaseAuth.instance.currentUser;
-                // log(currentUser.toString());
-              },
-              child: Container(
-                  margin: const EdgeInsets.only(right: 10),
-                  child: const Icon(
-                    Icons.logout,
-                    color: Colors.white,
-                  )))
-        ]),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

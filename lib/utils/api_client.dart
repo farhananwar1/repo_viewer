@@ -1,5 +1,4 @@
 import 'dart:convert';
-// import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:repo_viewer/utils/failure.dart';
@@ -12,7 +11,7 @@ class SecureApiClient {
   static Future<http.Response> invoke({
     required HttpCallType callType,
     required String url,
-    Map<String,String>? headers,
+    Map<String, String>? headers,
     String? body,
   }) async {
     http.Response res = await _invokeApi(
@@ -39,8 +38,6 @@ class SecureApiClient {
 
       Uri uri = Uri.parse(url);
       headers ??= <String, String>{};
-
-      // headers['Accept-Language'] = locator<ConfigService>().language;
       if (callType == HttpCallType.post) {
         headers['Content-Type'] = 'application/json';
       }
